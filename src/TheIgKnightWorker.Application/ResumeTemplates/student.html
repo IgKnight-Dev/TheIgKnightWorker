@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{FullName}} - Resume</title>
+
+    <style>
+        :root {
+            --ink: #172033;
+            --body: #445064;
+            --muted: #7a8699;
+            --accent: #6d28d9;
+            --accent-dark: #4c1d95;
+            --accent-soft: #f5f3ff;
+            --accent-border: #ddd6fe;
+            --rule: #e5e7eb;
+            --soft: #fafafa;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Verdana, Arial, sans-serif;
+            color: var(--body);
+            font-size: 9.3pt;
+            line-height: 1.5;
+            background: var(--white);
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            padding: 30px 36px 34px;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .header {
+            padding: 24px 26px 20px;
+            background: var(--soft);
+            border: 1px solid var(--rule);
+            border-top: 4px solid var(--accent);
+        }
+
+        .name {
+            color: var(--ink);
+            font-size: 25pt;
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -0.5px;
+        }
+
+        .headline {
+            margin-top: 6px;
+            color: var(--accent);
+            font-size: 10.5pt;
+            font-weight: 700;
+            line-height: 1.4;
+        }
+
+        .contact-row {
+            margin-top: 10px;
+            color: var(--muted);
+            font-size: 8.3pt;
+            line-height: 1.7;
+        }
+
+            .contact-row a {
+                color: var(--muted);
+                text-decoration: none;
+            }
+
+        .links-row {
+            margin-top: 5px;
+            font-size: 8.3pt;
+            font-weight: 600;
+            line-height: 1.7;
+        }
+
+            .links-row a {
+                color: var(--accent);
+                text-decoration: none;
+            }
+
+
+        /* =========================================================
+           SECTION
+        ========================================================= */
+
+        .section {
+            margin-top: 20px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 9px;
+            color: var(--ink);
+            font-size: 10pt;
+            font-weight: 800;
+            letter-spacing: 0.8px;
+            text-transform: uppercase;
+        }
+
+            .section-title::after {
+                content: "";
+                flex: 1;
+                height: 1px;
+                background: var(--rule);
+            }
+
+
+        /* =========================================================
+           EDUCATION
+        ========================================================= */
+
+        .education-section {
+            margin-top: 24px;
+        }
+
+        .education-entry {
+            position: relative;
+            margin-bottom: 15px;
+            padding: 12px 14px;
+            background: var(--accent-soft);
+            border-left: 3px solid var(--accent);
+            page-break-inside: avoid;
+        }
+
+            .education-entry:last-child {
+                margin-bottom: 0;
+            }
+
+            .education-entry .entry-title-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                gap: 15px;
+            }
+
+            .education-entry .entry-title {
+                color: var(--ink);
+                font-size: 10pt;
+                font-weight: 800;
+                line-height: 1.4;
+            }
+
+            .education-entry .entry-date {
+                color: var(--muted);
+                font-size: 8.1pt;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+
+            .education-entry .entry-subtitle {
+                margin-top: 3px;
+                color: var(--accent-dark);
+                font-size: 8.8pt;
+                font-weight: 700;
+            }
+
+            .education-entry .entry-meta {
+                margin-top: 3px;
+                color: var(--muted);
+                font-size: 8.1pt;
+            }
+
+
+        /* =========================================================
+           PROJECTS
+        ========================================================= */
+
+        .project-entry {
+            margin-bottom: 16px;
+            padding-bottom: 13px;
+            border-bottom: 1px solid var(--rule);
+            page-break-inside: avoid;
+        }
+
+            .project-entry:last-child {
+                margin-bottom: 0;
+                padding-bottom: 0;
+                border-bottom: none;
+            }
+
+            .project-entry .entry-title-row {
+                display: flex;
+                justify-content: space-between;
+                align-items: baseline;
+                gap: 15px;
+            }
+
+            .project-entry .entry-title {
+                color: var(--ink);
+                font-size: 10pt;
+                font-weight: 800;
+                line-height: 1.4;
+            }
+
+            .project-entry .entry-date {
+                color: var(--muted);
+                font-size: 8.1pt;
+                font-weight: 600;
+                white-space: nowrap;
+            }
+
+            .project-entry .entry-subtitle {
+                margin-top: 3px;
+                color: var(--accent);
+                font-size: 8.7pt;
+                font-weight: 700;
+            }
+
+        .entry-description {
+            margin-top: 6px;
+        }
+
+            .entry-description p {
+                margin: 0 0 5px;
+                color: var(--body);
+                font-size: 9pt;
+                line-height: 1.55;
+            }
+
+            .entry-description ul {
+                margin: 5px 0 0;
+                padding-left: 18px;
+            }
+
+            .entry-description li {
+                margin-bottom: 3px;
+                color: var(--body);
+                font-size: 9pt;
+                line-height: 1.55;
+            }
+
+        .entry-links {
+            margin-top: 6px;
+            font-size: 8.2pt;
+            font-weight: 700;
+        }
+
+            .entry-links a {
+                color: var(--accent);
+                text-decoration: none;
+            }
+
+            .entry-links .divider {
+                margin: 0 6px;
+                color: var(--muted);
+            }
+
+
+        /* =========================================================
+           SKILLS
+        ========================================================= */
+
+        .skills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 7px;
+        }
+
+        .resume-skill {
+            display: inline-block;
+            padding: 5px 10px;
+            color: var(--accent-dark);
+            background: var(--accent-soft);
+            border: 1px solid var(--accent-border);
+            border-radius: 3px;
+            font-size: 8.4pt;
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           ACHIEVEMENTS
+        ========================================================= */
+
+        .achievement-list {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+        }
+
+            .achievement-list li {
+                position: relative;
+                margin-bottom: 9px;
+                padding-left: 17px;
+                color: var(--body);
+                font-size: 9pt;
+                line-height: 1.55;
+            }
+
+                .achievement-list li::before {
+                    content: "◆";
+                    position: absolute;
+                    left: 0;
+                    top: 1px;
+                    color: var(--accent);
+                    font-size: 7pt;
+                }
+
+
+        /* =========================================================
+           PRINT / PDF
+        ========================================================= */
+
+        @media print {
+
+            .page {
+                padding: 26px 32px 30px;
+            }
+
+            .education-entry,
+            .project-entry {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+
+        <!-- =====================================================
+         HEADER
+    ===================================================== -->
+
+        <header class="header">
+
+            <div class="name">
+                {{FullName}}
+            </div>
+
+            <div class="headline">
+                {{Headline}}
+            </div>
+
+            <div class="contact-row">
+                {{Contact}}
+            </div>
+
+            <div class="links-row">
+                {{Links}}
+            </div>
+
+        </header>
+
+
+        <!-- =====================================================
+         EDUCATION
+    ===================================================== -->
+
+        <section class="section education-section">
+
+            <div class="section-title">
+                Education
+            </div>
+
+            <div>
+                {{Education}}
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+         PROJECTS
+    ===================================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+                Projects
+            </div>
+
+            <div>
+                {{Projects}}
+            </div>
+
+        </section>
+
+
+        <!-- =====================================================
+         TECHNICAL SKILLS
+    ===================================================== -->
+
+        <section class="section">
+
+            <div class="section-title">
+                Technical Skills
+            </div>
+
+            <div class="skills-wrap">
+                {{Skills}}
+            </div>
+
+        </section>
+
+        <!-- ACHIEVEMENTS_INJECTION_POINT -->
+
+    </div>
+
+</body>
+</html>

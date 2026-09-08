@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{FullName}} - Resume</title>
+    <style>
+        :root {
+            --ink: #111827;
+            --body: #374151;
+            --muted: #6b7280;
+            --faint: #9ca3af;
+            --accent: #1d4ed8;
+            --accent-soft: #eff6ff;
+            --rule: #d1d5db;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html, body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+            color: var(--body);
+            font-size: 9.5pt;
+            line-height: 1.45;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            padding: 26px 32px 30px;
+        }
+
+        /* ---------------------------------------------------------
+           HEADER
+        --------------------------------------------------------- */
+
+        .header {
+            padding-bottom: 14px;
+            border-bottom: 2.5px solid var(--ink);
+            text-align: center;
+        }
+
+        .name {
+            font-size: 24pt;
+            font-weight: 800;
+            letter-spacing: -0.3px;
+            line-height: 1.1;
+            color: var(--ink);
+        }
+
+        .headline {
+            margin-top: 4px;
+            font-size: 11pt;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .contact-row {
+            margin-top: 8px;
+            font-size: 8.6pt;
+            color: var(--muted);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 6px 0;
+        }
+
+            .contact-row a {
+                color: var(--muted);
+                text-decoration: none;
+            }
+
+        .links-row {
+            margin-top: 4px;
+            font-size: 8.6pt;
+            font-weight: 600;
+        }
+
+            .links-row a {
+                color: var(--accent);
+                text-decoration: none;
+            }
+
+        /* ---------------------------------------------------------
+           SECTIONS
+        --------------------------------------------------------- */
+
+        .section {
+            margin-top: 15px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-size: 10.5pt;
+            font-weight: 800;
+            letter-spacing: 0.6px;
+            color: var(--ink);
+            text-transform: uppercase;
+            text-align: center;
+        }
+
+            .section-title::before,
+            .section-title::after {
+                content: "";
+                flex: 1;
+                height: 1px;
+                background: var(--rule);
+            }
+
+        .section-body {
+            margin-top: 7px;
+        }
+
+        /* ---------------------------------------------------------
+           SUMMARY
+        --------------------------------------------------------- */
+
+        .summary {
+            font-size: 9.2pt;
+            line-height: 1.55;
+            color: var(--body);
+        }
+
+        /* ---------------------------------------------------------
+           SKILLS
+        --------------------------------------------------------- */
+
+        .skills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .resume-skill {
+            display: inline-block;
+            padding: 3px 10px;
+            font-size: 8.6pt;
+            font-weight: 600;
+            color: var(--accent);
+            background: var(--accent-soft);
+            border: 0.75px solid #bfdbfe;
+            border-radius: 3px;
+        }
+
+        /* ---------------------------------------------------------
+           EXPERIENCE / EDUCATION / PROJECT ENTRIES
+           (these class names are used by the C# HTML-fragment
+           builders — BuildExperienceHtml, BuildProjectsHtml, etc.)
+        --------------------------------------------------------- */
+
+        .entry {
+            margin-bottom: 13px;
+            page-break-inside: avoid;
+        }
+
+            .entry:last-child {
+                margin-bottom: 0;
+            }
+
+        .entry-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 12px;
+        }
+
+        .entry-title {
+            font-size: 10pt;
+            font-weight: 700;
+            color: var(--ink);
+        }
+
+        .entry-date {
+            font-size: 8.5pt;
+            font-weight: 600;
+            color: var(--muted);
+            white-space: nowrap;
+        }
+
+        .entry-subtitle {
+            margin-top: 2px;
+            font-size: 9.3pt;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .entry-meta {
+            margin-top: 2px;
+            font-size: 8.6pt;
+            color: var(--muted);
+        }
+
+        .entry-description {
+            margin-top: 5px;
+        }
+
+            .entry-description p {
+                margin: 0 0 4px 0;
+                font-size: 9pt;
+                line-height: 1.5;
+                color: var(--body);
+            }
+
+            .entry-description ul {
+                margin: 4px 0 0 0;
+                padding-left: 16px;
+            }
+
+            .entry-description li {
+                margin-bottom: 2px;
+                font-size: 9pt;
+                line-height: 1.5;
+                color: var(--body);
+            }
+
+        .entry-links {
+            margin-top: 5px;
+            font-size: 8.4pt;
+            font-weight: 600;
+        }
+
+            .entry-links a {
+                color: var(--accent);
+                text-decoration: none;
+            }
+
+            .entry-links .divider {
+                color: var(--faint);
+                margin: 0 6px;
+            }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- =========================================================
+         HEADER
+         ========================================================= -->
+
+        <div class="header">
+            <div class="name">{{FullName}}</div>
+            <div class="headline">{{Headline}}</div>
+
+            <div class="contact-row">
+                {{Contact}}
+            </div>
+
+            <div class="links-row">
+                {{Links}}
+            </div>
+        </div>
+
+
+        <!-- =========================================================
+         PROFESSIONAL SUMMARY
+         ========================================================= -->
+
+        <div class="section">
+            <div class="section-title">Professional Summary</div>
+            <div class="section-body summary">
+                {{Summary}}
+            </div>
+        </div>
+
+
+        <!-- =========================================================
+         CORE SKILLS
+         ========================================================= -->
+
+        <div class="section">
+            <div class="section-title">Core Skills</div>
+            <div class="section-body skills-wrap">
+                {{Skills}}
+            </div>
+        </div>
+
+
+        <!-- =========================================================
+         PROFESSIONAL EXPERIENCE
+         ========================================================= -->
+
+        <div class="section">
+            <div class="section-title">Professional Experience</div>
+            <div class="section-body">
+                {{Experience}}
+            </div>
+        </div>
+
+
+        <!-- =========================================================
+         PROJECTS
+         ========================================================= -->
+
+        <div class="section">
+            <div class="section-title">Projects</div>
+            <div class="section-body">
+                {{Projects}}
+            </div>
+        </div>
+
+
+        <!-- =========================================================
+         EDUCATION
+         ========================================================= -->
+
+        <div class="section">
+            <div class="section-title">Education</div>
+            <div class="section-body">
+                {{Education}}
+            </div>
+        </div>
+
+        <!-- ACHIEVEMENTS_INJECTION_POINT -->
+
+    </div>
+
+</body>
+</html>

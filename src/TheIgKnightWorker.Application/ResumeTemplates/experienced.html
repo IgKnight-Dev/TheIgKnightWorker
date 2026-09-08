@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{FullName}} - Resume</title>
+
+    <style>
+        :root {
+            --navy: #172554;
+            --navy-dark: #0f172a;
+            --blue: #2563eb;
+            --blue-soft: #eff6ff;
+            --ink: #172033;
+            --body: #3f4b5f;
+            --muted: #718096;
+            --rule: #dbe2ea;
+            --sidebar: #f8fafc;
+            --white: #ffffff;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            color: var(--body);
+            font-size: 9.6pt;
+            line-height: 1.55;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+
+        /* =========================================================
+           PAGE
+        ========================================================= */
+
+        .page {
+            display: flex;
+            min-height: 100vh;
+            background: var(--white);
+        }
+
+
+        /* =========================================================
+           LEFT PROFILE COLUMN
+        ========================================================= */
+
+        .sidebar {
+            width: 26%;
+            padding: 38px 24px 36px;
+            background: var(--sidebar);
+            border-right: 1px solid var(--rule);
+        }
+
+        .sidebar-header {
+            padding-bottom: 22px;
+            border-bottom: 3px solid var(--navy);
+        }
+
+        .name {
+            color: var(--navy-dark);
+            font-size: 23pt;
+            font-weight: 800;
+            line-height: 1.08;
+            letter-spacing: -0.5px;
+        }
+
+        .headline {
+            margin-top: 9px;
+            color: var(--blue);
+            font-size: 9.7pt;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+
+        /* =========================================================
+           CONTACT
+        ========================================================= */
+
+        .contact-section {
+            margin-top: 28px;
+        }
+
+        .contact-row {
+            color: var(--body);
+            font-size: 8.5pt;
+            line-height: 1.75;
+        }
+
+            .contact-row a {
+                color: var(--body);
+                text-decoration: none;
+            }
+
+        .links-row {
+            margin-top: 9px;
+            font-size: 8.4pt;
+            line-height: 1.75;
+        }
+
+            .links-row a {
+                color: var(--blue);
+                text-decoration: none;
+                font-weight: 600;
+            }
+
+
+        /* =========================================================
+           SIDEBAR SECTIONS
+        ========================================================= */
+
+        .sidebar-section {
+            margin-top: 30px;
+        }
+
+        .sidebar-title {
+            margin-bottom: 10px;
+            color: var(--navy);
+            font-size: 8.6pt;
+            font-weight: 800;
+            letter-spacing: 1.25px;
+            text-transform: uppercase;
+        }
+
+            .sidebar-title::after {
+                content: "";
+                display: block;
+                width: 30px;
+                height: 2px;
+                margin-top: 6px;
+                background: var(--blue);
+            }
+
+
+        /* =========================================================
+           SKILLS
+        ========================================================= */
+
+        .skills-wrap {
+            display: block;
+        }
+
+        .resume-skill {
+            display: block;
+            margin-bottom: 8px;
+            padding-left: 10px;
+            color: var(--body);
+            font-size: 9pt;
+            font-weight: 600;
+            line-height: 1.45;
+            border-left: 2px solid #bfdbfe;
+        }
+
+
+        /* =========================================================
+           EDUCATION
+        ========================================================= */
+
+        .education-entry {
+            margin-bottom: 14px;
+            page-break-inside: avoid;
+        }
+
+            .education-entry:last-child {
+                margin-bottom: 0;
+            }
+
+            .education-entry .entry-title {
+                color: var(--ink);
+                font-size: 9pt;
+                font-weight: 700;
+                line-height: 1.45;
+            }
+
+            .education-entry .entry-subtitle {
+                margin-top: 3px;
+                color: var(--blue);
+                font-size: 8.3pt;
+                font-weight: 600;
+                line-height: 1.4;
+            }
+
+            .education-entry .entry-meta {
+                margin-top: 3px;
+                color: var(--muted);
+                font-size: 8pt;
+                line-height: 1.4;
+            }
+
+
+        /* =========================================================
+           MAIN CONTENT
+        ========================================================= */
+
+        .main {
+            width: 74%;
+            padding: 38px 38px 42px;
+        }
+
+
+        /* =========================================================
+           CAREER PROFILE
+        ========================================================= */
+
+        .summary-section {
+            margin-bottom: 32px;
+            padding-bottom: 22px;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .summary-label {
+            margin-bottom: 8px;
+            color: var(--blue);
+            font-size: 8.6pt;
+            font-weight: 800;
+            letter-spacing: 1.35px;
+            text-transform: uppercase;
+        }
+
+        .summary {
+            color: var(--body);
+            font-size: 9.7pt;
+            line-height: 1.65;
+        }
+
+
+        /* =========================================================
+           EXPERIENCE HEADER
+        ========================================================= */
+
+        .experience-header {
+            margin-bottom: 20px;
+        }
+
+        .experience-title {
+            color: var(--navy-dark);
+            font-size: 17pt;
+            font-weight: 800;
+            line-height: 1.2;
+            letter-spacing: -0.25px;
+        }
+
+        .experience-line {
+            width: 46px;
+            height: 3px;
+            margin-top: 8px;
+            background: var(--blue);
+        }
+
+
+        /* =========================================================
+           EXPERIENCE ENTRIES
+        ========================================================= */
+
+        .entry {
+            position: relative;
+            margin-bottom: 25px;
+            padding-left: 20px;
+            page-break-inside: avoid;
+            border-left: 2px solid #dbeafe;
+        }
+
+            .entry:last-child {
+                margin-bottom: 0;
+            }
+
+            .entry::before {
+                content: "";
+                position: absolute;
+                top: 4px;
+                left: -5px;
+                width: 8px;
+                height: 8px;
+                background: var(--blue);
+                border-radius: 50%;
+            }
+
+        .entry-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 18px;
+        }
+
+        .entry-title {
+            color: var(--navy-dark);
+            font-size: 11pt;
+            font-weight: 800;
+            line-height: 1.4;
+        }
+
+        .entry-date {
+            color: var(--muted);
+            font-size: 8.3pt;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .entry-subtitle {
+            margin-top: 4px;
+            color: var(--blue);
+            font-size: 9.2pt;
+            font-weight: 700;
+            line-height: 1.45;
+        }
+
+        .entry-meta {
+            margin-top: 3px;
+            color: var(--muted);
+            font-size: 8.4pt;
+            line-height: 1.45;
+        }
+
+        .entry-description {
+            margin-top: 8px;
+        }
+
+            .entry-description p {
+                margin: 0 0 6px;
+                color: var(--body);
+                font-size: 9.4pt;
+                line-height: 1.6;
+            }
+
+            .entry-description ul {
+                margin: 6px 0 0;
+                padding-left: 18px;
+            }
+
+            .entry-description li {
+                margin-bottom: 4px;
+                color: var(--body);
+                font-size: 9.3pt;
+                line-height: 1.6;
+            }
+
+
+        /* =========================================================
+           EXPERIENCE LINKS
+        ========================================================= */
+
+        .entry-links {
+            margin-top: 7px;
+            font-size: 8.2pt;
+            font-weight: 700;
+        }
+
+            .entry-links a {
+                color: var(--blue);
+                text-decoration: none;
+            }
+
+            .entry-links .divider {
+                margin: 0 6px;
+                color: var(--muted);
+            }
+
+
+        /* =========================================================
+           PRINT / PDF
+        ========================================================= */
+
+        @media print {
+
+            .page {
+                min-height: auto;
+            }
+
+            .sidebar {
+                background: var(--sidebar);
+            }
+
+            .entry,
+            .education-entry {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- =====================================================
+             SIDEBAR
+        ===================================================== -->
+
+        <aside class="sidebar">
+
+            <div class="sidebar-header">
+
+                <div class="name">
+                    {{FullName}}
+                </div>
+
+                <div class="headline">
+                    {{Headline}}
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CONTACT
+            ================================================= -->
+
+            <div class="contact-section">
+
+                <div class="sidebar-title">
+                    Contact
+                </div>
+
+                <div class="contact-row">
+                    {{Contact}}
+                </div>
+
+                <div class="links-row">
+                    {{Links}}
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 CORE SKILLS
+            ================================================= -->
+
+            <div class="sidebar-section">
+
+                <div class="sidebar-title">
+                    Core Skills
+                </div>
+
+                <div class="skills-wrap">
+                    {{Skills}}
+                </div>
+
+            </div>
+
+
+            <!-- =================================================
+                 EDUCATION
+            ================================================= -->
+
+            <div class="sidebar-section">
+
+                <div class="sidebar-title">
+                    Education
+                </div>
+
+                <div>
+                    {{Education}}
+                </div>
+
+            </div>
+
+        </aside>
+
+
+        <!-- =====================================================
+             MAIN CONTENT
+        ===================================================== -->
+
+        <main class="main">
+
+
+            <!-- =================================================
+         CAREER PROFILE
+    ================================================= -->
+
+            <section class="summary-section">
+
+                <div class="summary-label">
+                    Career Profile
+                </div>
+
+                <div class="summary">
+                    {{Summary}}
+                </div>
+
+            </section>
+
+
+            <!-- =================================================
+         PROFESSIONAL EXPERIENCE
+    ================================================= -->
+
+            <section>
+
+                <div class="experience-header">
+
+                    <div class="experience-title">
+                        Professional Experience
+                    </div>
+
+                    <div class="experience-line"></div>
+
+                </div>
+
+                <div>
+                    {{Experience}}
+                </div>
+
+            </section>
+
+            <!-- ACHIEVEMENTS_INJECTION_POINT -->
+
+
+        </main>
+
+    </div>
+
+</body>
+</html>

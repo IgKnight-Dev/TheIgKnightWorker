@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{FullName}} - Resume</title>
+
+    <style>
+        :root {
+            --ink: #172033;
+            --body: #3f4a5a;
+            --muted: #718096;
+            --accent: #0f766e;
+            --accent-light: #ecfdf5;
+            --accent-border: #99f6e4;
+            --rule: #dbe3ea;
+            --soft: #f8fafc;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: "Trebuchet MS", Arial, sans-serif;
+            color: var(--body);
+            font-size: 9.5pt;
+            line-height: 1.45;
+            background: #ffffff;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .page {
+            padding: 28px 34px 32px;
+        }
+
+
+        /* =========================================================
+           HEADER
+        ========================================================= */
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            gap: 30px;
+            padding-bottom: 18px;
+            border-bottom: 1px solid var(--rule);
+        }
+
+        .header-main {
+            flex: 1;
+        }
+
+        .name {
+            font-size: 25pt;
+            line-height: 1.05;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--ink);
+        }
+
+        .headline {
+            margin-top: 7px;
+            font-size: 11pt;
+            font-weight: 600;
+            color: var(--accent);
+        }
+
+        .header-contact {
+            width: 220px;
+            text-align: right;
+            font-size: 8.4pt;
+            line-height: 1.7;
+            color: var(--muted);
+        }
+
+            .header-contact a {
+                color: var(--muted);
+                text-decoration: none;
+            }
+
+        .links-row {
+            margin-top: 8px;
+            font-size: 8.4pt;
+            font-weight: 600;
+        }
+
+            .links-row a {
+                color: var(--accent);
+                text-decoration: none;
+            }
+
+
+        /* =========================================================
+           SECTIONS
+        ========================================================= */
+
+        .section {
+            margin-top: 17px;
+        }
+
+        .section-title {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+            margin-bottom: 8px;
+            color: var(--ink);
+            font-size: 10pt;
+            font-weight: 800;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+            .section-title::after {
+                content: "";
+                flex: 1;
+                height: 1px;
+                background: var(--rule);
+            }
+
+        .section-body {
+            margin-top: 0;
+        }
+
+
+        /* =========================================================
+           PROFILE / SUMMARY
+        ========================================================= */
+
+        .summary {
+            padding: 11px 13px;
+            background: var(--soft);
+            border-left: 3px solid var(--accent);
+            font-size: 9.2pt;
+            line-height: 1.55;
+            color: var(--body);
+        }
+
+
+        /* =========================================================
+           SKILLS
+        ========================================================= */
+
+        .skills-wrap {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .resume-skill {
+            display: inline-block;
+            padding: 4px 9px;
+            border: 1px solid var(--accent-border);
+            border-radius: 3px;
+            background: var(--accent-light);
+            color: var(--accent);
+            font-size: 8.4pt;
+            font-weight: 600;
+        }
+
+
+        /* =========================================================
+           EDUCATION
+        ========================================================= */
+
+        .entry {
+            margin-bottom: 13px;
+            page-break-inside: avoid;
+        }
+
+            .entry:last-child {
+                margin-bottom: 0;
+            }
+
+        .entry-title-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            gap: 15px;
+        }
+
+        .entry-title {
+            color: var(--ink);
+            font-size: 10pt;
+            font-weight: 700;
+        }
+
+        .entry-date {
+            color: var(--muted);
+            font-size: 8.4pt;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+
+        .entry-subtitle {
+            margin-top: 2px;
+            color: var(--accent);
+            font-size: 9.2pt;
+            font-weight: 600;
+        }
+
+        .entry-meta {
+            margin-top: 2px;
+            color: var(--muted);
+            font-size: 8.5pt;
+        }
+
+
+        /* =========================================================
+           PROJECTS
+        ========================================================= */
+
+        .project-entry {
+            margin-bottom: 13px;
+            padding-left: 11px;
+            border-left: 2px solid var(--accent-border);
+            page-break-inside: avoid;
+        }
+
+            .project-entry:last-child {
+                margin-bottom: 0;
+            }
+
+        .project-title {
+            color: var(--ink);
+            font-size: 10pt;
+            font-weight: 700;
+        }
+
+        .project-tech {
+            margin-top: 2px;
+            color: var(--accent);
+            font-size: 8.5pt;
+            font-weight: 600;
+        }
+
+        .project-description {
+            margin-top: 4px;
+            color: var(--body);
+            font-size: 8.9pt;
+            line-height: 1.5;
+        }
+
+        .entry-description {
+            margin-top: 5px;
+        }
+
+            .entry-description p {
+                margin: 0 0 4px 0;
+                color: var(--body);
+                font-size: 9pt;
+                line-height: 1.5;
+            }
+
+            .entry-description ul {
+                margin: 4px 0 0;
+                padding-left: 16px;
+            }
+
+            .entry-description li {
+                margin-bottom: 2px;
+                color: var(--body);
+                font-size: 9pt;
+                line-height: 1.5;
+            }
+
+        .entry-links {
+            margin-top: 5px;
+            font-size: 8.4pt;
+            font-weight: 600;
+        }
+
+            .entry-links a {
+                color: var(--accent);
+                text-decoration: none;
+            }
+
+            .entry-links .divider {
+                margin: 0 6px;
+                color: var(--muted);
+            }
+
+
+        /* =========================================================
+           OPTIONAL ACHIEVEMENTS / CERTIFICATIONS
+           ========================================================= */
+
+        .highlight-list {
+            margin: 0;
+            padding-left: 17px;
+        }
+
+            .highlight-list li {
+                margin-bottom: 3px;
+                font-size: 9pt;
+                line-height: 1.5;
+            }
+
+
+        /* =========================================================
+           PRINT / PDF
+        ========================================================= */
+
+        @media print {
+
+            .page {
+                padding: 24px 30px 28px;
+            }
+
+            .entry,
+            .project-entry {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="page">
+
+        <!-- =====================================================
+         HEADER
+    ===================================================== -->
+
+        <div class="header">
+
+            <div class="header-main">
+
+                <div class="name">
+                    {{FullName}}
+                </div>
+
+                <div class="headline">
+                    {{Headline}}
+                </div>
+
+                <div class="links-row">
+                    {{Links}}
+                </div>
+
+            </div>
+
+            <div class="header-contact">
+                {{Contact}}
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+         PROFILE
+    ===================================================== -->
+
+        <div class="section">
+
+            <div class="section-title">
+                Profile
+            </div>
+
+            <div class="section-body summary">
+                {{Summary}}
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+         EDUCATION
+    ===================================================== -->
+
+        <div class="section">
+
+            <div class="section-title">
+                Education
+            </div>
+
+            <div class="section-body">
+                {{Education}}
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+         PROJECTS
+    ===================================================== -->
+
+        <div class="section">
+
+            <div class="section-title">
+                Academic & Personal Projects
+            </div>
+
+            <div class="section-body">
+                {{Projects}}
+            </div>
+
+        </div>
+
+
+        <!-- =====================================================
+         SKILLS
+    ===================================================== -->
+
+        <div class="section">
+
+            <div class="section-title">
+                Technical Skills
+            </div>
+
+            <div class="section-body skills-wrap">
+                {{Skills}}
+            </div>
+
+        </div>
+
+        <!-- ACHIEVEMENTS_INJECTION_POINT -->
+
+    </div>
+
+</body>
+</html>
