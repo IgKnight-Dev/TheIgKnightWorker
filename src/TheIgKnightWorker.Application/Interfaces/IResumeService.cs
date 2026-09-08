@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Http;
-using TheIgKnightWorker.Application.DTOs;
-using TheIgKnightWorker.Domain.Entities;
+﻿using TheIgKnightWorker.Application.DTOs;
 
 namespace TheIgKnightWorker.Application.Interfaces;
 
 public interface IResumeService
 {
-    Task<ResumeGenerationResponseDto> GenerateResumeAsync(CreatePortfolioDto portfolio, ResumeGenerationRequestDto requestDto);
-    //Task<ResumeGenerationResponseDto> UploadAndAttachResumeAsync(IFormFile file, Guid portfolioId);
+    Task<ResumeGenerationResponseDto> GenerateResumeAsync(
+            CreatePortfolioDto portfolioDto,
+            ResumeGenerationRequestDto requestDto,
+            Guid userId,
+            CancellationToken cancellationToken = default);
 }

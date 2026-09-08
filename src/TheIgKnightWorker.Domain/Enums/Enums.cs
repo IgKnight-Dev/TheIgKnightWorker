@@ -58,4 +58,18 @@ public class Enums
 
         Other = 99
     }
+
+    public enum EventType
+    {
+        ResumeGeneration = 1,
+    }
+
+    public enum EventStatus
+    {
+        Created = 1,
+        Queued = 2,
+        InProgress = 3,
+        Completed = 4,
+        Failed = 5
+    }
 }

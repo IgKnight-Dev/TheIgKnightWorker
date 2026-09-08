@@ -10,11 +10,10 @@ internal class UnitOfWork : IUnitOfWork
 
     private readonly DapperContext _dapperContext;
 
-
     private IDocumentRepository? _documentRepository;
     private ISkillRepository _skillRepository;
     private IContextUserRepository _contextUserRepository;
-
+    private IEventRepository? _eventRepository;
 
     public UnitOfWork(DapperContext dapperContext, ILifetimeScope scope)
     {
@@ -39,6 +38,12 @@ internal class UnitOfWork : IUnitOfWork
            new TypedParameter(typeof(IDbConnection), _dapperContext.Connection),
            new NamedParameter("transaction", _dapperContext.CurrentTransaction)
        );
+
+    public IEventRepository EventRepository =>
+      this._eventRepository ??= _scope.Resolve<IEventRepository>(
+          new TypedParameter(typeof(IDbConnection), _dapperContext.Connection),
+          new NamedParameter("transaction", _dapperContext.CurrentTransaction)
+      );
 
     public void BeginTransaction() => _dapperContext.BeginTransaction();
 

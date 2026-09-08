@@ -38,5 +38,17 @@ public class ApplicationModule : Module
         builder.RegisterType<ResumeGenerationJobService>()
             .AsSelf()
             .InstancePerDependency();
+
+        builder.RegisterType<ResumeHtmlBuilder>()
+                    .As<IResumeHtmlBuilder>()
+                    .InstancePerDependency();
+
+            builder.RegisterType<ResumePdfGenerator>()
+                .As<IResumePdfGenerator>()
+                .SingleInstance();
+
+            builder.RegisterType<ResumeService>()
+                .As<IResumeService>()
+                .InstancePerDependency();
     }
 }

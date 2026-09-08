@@ -36,6 +36,7 @@ public sealed class ResumeGenerationHandler : IResumeGenerationHandler
 
         await _resumeService.GenerateResumeAsync(
             message.Portfolio,
-            message.Request);
+            message.Request,
+            message.UserId);
     }
 }

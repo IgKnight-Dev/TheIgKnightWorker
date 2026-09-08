@@ -15,6 +15,8 @@ public class InfrastructureMappingProfile : Profile
 
         // Document mapping
         this.CreateDocumentMapping();
+
+        this.CreateEventMapping();
     }
 
 
@@ -41,6 +43,24 @@ public class InfrastructureMappingProfile : Profile
             .ForMember(dest => dest.Category, opt => opt.MapFrom(src => (short)src.Category))
             .ReverseMap()
             .ForMember(dest => dest.Category, opt => opt.MapFrom(src => (SkillCategory)src.Category));
+    }
+
+    private void CreateEventMapping()
+    {
+        this.CreateMap<Event, DbEvent>()
+            .ForMember(
+                dest => dest.EventType,
+                opt => opt.MapFrom(src => (short)src.EventType))
+            .ForMember(
+                dest => dest.Status,
+                opt => opt.MapFrom(src => (short)src.Status))
+            .ReverseMap()
+            .ForMember(
+                dest => dest.EventType,
+                opt => opt.MapFrom(src => (EventType)src.EventType))
+            .ForMember(
+                dest => dest.Status,
+                opt => opt.MapFrom(src => (EventStatus)src.Status));
     }
 
     // New: add mapping for Document <-> DbDocument

@@ -69,5 +69,7 @@ public sealed class InfrastructureModule : Module
         builder.RegisterType<RequestContext>()
             .As<IRequestContext>()
             .InstancePerLifetimeScope();
+
+        builder.RegisterType<EventRepository>().As<IEventRepository>().InstancePerLifetimeScope();
     }
 }

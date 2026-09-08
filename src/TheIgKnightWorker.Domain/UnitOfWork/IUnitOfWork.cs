@@ -8,6 +8,8 @@ public interface IUnitOfWork : IDisposable
 
     ISkillRepository SkillRepository { get; }
     IContextUserRepository ContextUserRepository { get; }
+    IEventRepository EventRepository { get; }
+
 
     void BeginTransaction();
     void Commit();
