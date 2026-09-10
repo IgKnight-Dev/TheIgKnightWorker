@@ -20,9 +20,6 @@ public class ResumePdfGenerator :
     {
         var totalStopwatch = Stopwatch.StartNew();
 
-        Console.WriteLine(
-            "[ResumePdfGenerator] PDF generation started.");
-
         try
         {
             // ---------------------------------------------------------
@@ -33,19 +30,10 @@ public class ResumePdfGenerator :
 
             if (string.IsNullOrWhiteSpace(html))
             {
-                Console.WriteLine(
-                    "[ResumePdfGenerator] HTML validation failed: HTML is empty.");
-
                 throw new ArgumentException(
                     "HTML content is required.",
                     nameof(html));
             }
-
-            Console.WriteLine(
-                $"[ResumePdfGenerator] HTML validated. " +
-                $"HTML length: {html.Length:N0} characters. " +
-                $"Time: {validationStopwatch.ElapsedMilliseconds} ms");
-
 
             // ---------------------------------------------------------
             // 2. Ensure browser
@@ -53,17 +41,9 @@ public class ResumePdfGenerator :
 
             var browserStopwatch = Stopwatch.StartNew();
 
-            Console.WriteLine(
-                "[ResumePdfGenerator] Ensuring Playwright browser is available...");
-
             var browser =
                 await EnsureBrowserAsync(
                     cancellationToken);
-
-            Console.WriteLine(
-                $"[ResumePdfGenerator] Browser ready. " +
-                $"Connected: {browser.IsConnected}. " +
-                $"Time: {browserStopwatch.ElapsedMilliseconds} ms");
 
 
             // ---------------------------------------------------------
@@ -72,16 +52,9 @@ public class ResumePdfGenerator :
 
             var contextStopwatch = Stopwatch.StartNew();
 
-            Console.WriteLine(
-                "[ResumePdfGenerator] Creating browser context...");
-
             await using var context =
                 await browser.NewContextAsync();
-
-            Console.WriteLine(
-                $"[ResumePdfGenerator] Browser context created. " +
-                $"Time: {contextStopwatch.ElapsedMilliseconds} ms");
-
+    
 
             // ---------------------------------------------------------
             // 4. Create page
@@ -89,15 +62,9 @@ public class ResumePdfGenerator :
 
             var pageStopwatch = Stopwatch.StartNew();
 
-            Console.WriteLine(
-                "[ResumePdfGenerator] Creating browser page...");
 
             await using var page =
                 await context.NewPageAsync();
-
-            Console.WriteLine(
-                $"[ResumePdfGenerator] Browser page created. " +
-                $"Time: {pageStopwatch.ElapsedMilliseconds} ms");
 
 
             // ---------------------------------------------------------
@@ -105,9 +72,6 @@ public class ResumePdfGenerator :
             // ---------------------------------------------------------
 
             var contentStopwatch = Stopwatch.StartNew();
-
-            Console.WriteLine(
-                "[ResumePdfGenerator] Setting HTML content...");
 
             await page.SetContentAsync(
                 html,
@@ -117,19 +81,12 @@ public class ResumePdfGenerator :
                         WaitUntilState.NetworkIdle
                 });
 
-            Console.WriteLine(
-                $"[ResumePdfGenerator] HTML content loaded. " +
-                $"Time: {contentStopwatch.ElapsedMilliseconds} ms");
-
 
             // ---------------------------------------------------------
             // 6. Generate PDF
             // ---------------------------------------------------------
 
             var pdfStopwatch = Stopwatch.StartNew();
-
-            Console.WriteLine(
-                "[ResumePdfGenerator] Generating PDF...");
 
             var pdfBytes =
                 await page.PdfAsync(
@@ -146,11 +103,6 @@ public class ResumePdfGenerator :
                         }
                     });
 
-            Console.WriteLine(
-                $"[ResumePdfGenerator] PDF generation completed. " +
-                $"Size: {pdfBytes?.Length ?? 0:N0} bytes. " +
-                $"Time: {pdfStopwatch.ElapsedMilliseconds} ms");
-
 
             // ---------------------------------------------------------
             // 7. Validate PDF
@@ -162,53 +114,28 @@ public class ResumePdfGenerator :
             if (pdfBytes == null ||
                 pdfBytes.Length == 0)
             {
-                Console.WriteLine(
-                    "[ResumePdfGenerator] PDF validation failed: PDF is empty.");
-
                 throw new InvalidOperationException(
                     "Playwright generated an empty PDF.");
             }
 
             if (!IsPdf(pdfBytes))
             {
-                Console.WriteLine(
-                    "[ResumePdfGenerator] PDF validation failed: Invalid PDF signature.");
-
                 throw new InvalidOperationException(
                     "Playwright generated invalid PDF data.");
             }
-
-            Console.WriteLine(
-                $"[ResumePdfGenerator] PDF validated successfully. " +
-                $"Time: {pdfValidationStopwatch.ElapsedMilliseconds} ms");
-
 
             // ---------------------------------------------------------
             // 8. Total
             // ---------------------------------------------------------
 
-            Console.WriteLine(
-                $"[ResumePdfGenerator] PDF generation completed successfully. " +
-                $"Total time: {totalStopwatch.ElapsedMilliseconds} ms. " +
-                $"PDF size: {pdfBytes.Length:N0} bytes.");
-
             return pdfBytes;
         }
         catch (OperationCanceledException)
         {
-            Console.WriteLine(
-                $"[ResumePdfGenerator] PDF generation cancelled. " +
-                $"Total time: {totalStopwatch.ElapsedMilliseconds} ms.");
-
             throw;
         }
         catch (Exception ex)
         {
-            Console.WriteLine(
-                $"[ResumePdfGenerator] PDF generation failed. " +
-                $"Total time: {totalStopwatch.ElapsedMilliseconds} ms. " +
-                $"Error: {ex.Message}");
-
             throw;
         }
     }
@@ -222,16 +149,8 @@ public class ResumePdfGenerator :
         if (_browser != null &&
             _browser.IsConnected)
         {
-            Console.WriteLine(
-                "[ResumePdfGenerator] Existing Playwright browser is connected. " +
-                "Reusing browser.");
-
             return _browser;
         }
-
-        Console.WriteLine(
-            "[ResumePdfGenerator] Playwright browser is not available. " +
-            "Waiting for browser lock...");
 
         var lockStopwatch =
             Stopwatch.StartNew();
@@ -239,19 +158,11 @@ public class ResumePdfGenerator :
         await _browserLock.WaitAsync(
             cancellationToken);
 
-        Console.WriteLine(
-            $"[ResumePdfGenerator] Browser lock acquired. " +
-            $"Wait time: {lockStopwatch.ElapsedMilliseconds} ms");
-
         try
         {
             if (_browser != null &&
                 _browser.IsConnected)
             {
-                Console.WriteLine(
-                    "[ResumePdfGenerator] Browser became available " +
-                    "while waiting for lock. Reusing browser.");
-
                 return _browser;
             }
 
@@ -262,15 +173,8 @@ public class ResumePdfGenerator :
             var playwrightStopwatch =
                 Stopwatch.StartNew();
 
-            Console.WriteLine(
-                "[ResumePdfGenerator] Creating Playwright instance...");
-
             _playwright ??=
                 await Playwright.CreateAsync();
-
-            Console.WriteLine(
-                $"[ResumePdfGenerator] Playwright instance ready. " +
-                $"Time: {playwrightStopwatch.ElapsedMilliseconds} ms");
 
 
             // ---------------------------------------------------------
@@ -279,9 +183,6 @@ public class ResumePdfGenerator :
 
             var launchStopwatch =
                 Stopwatch.StartNew();
-
-            Console.WriteLine(
-                "[ResumePdfGenerator] Launching Chromium...");
 
             _browser =
                 await _playwright.Chromium.LaunchAsync(
@@ -295,23 +196,12 @@ public class ResumePdfGenerator :
                         }
                     });
 
-            Console.WriteLine(
-                $"[ResumePdfGenerator] Chromium launched. " +
-                $"Connected: {_browser.IsConnected}. " +
-                $"Launch time: {launchStopwatch.ElapsedMilliseconds} ms");
-
-            Console.WriteLine(
-                $"[ResumePdfGenerator] Browser initialization completed. " +
-                $"Total time: {totalStopwatch.ElapsedMilliseconds} ms");
-
             return _browser;
         }
         finally
         {
             _browserLock.Release();
 
-            Console.WriteLine(
-                "[ResumePdfGenerator] Browser lock released.");
         }
     }
 
@@ -320,64 +210,38 @@ public class ResumePdfGenerator :
         var stopwatch =
             Stopwatch.StartNew();
 
-        Console.WriteLine(
-            "[ResumePdfGenerator] Shutting down Playwright browser...");
-
         await _browserLock.WaitAsync();
 
         try
         {
             if (_browser != null)
             {
-                Console.WriteLine(
-                    "[ResumePdfGenerator] Closing Chromium browser...");
-
                 await _browser.CloseAsync();
 
                 _browser = null;
 
-                Console.WriteLine(
-                    $"[ResumePdfGenerator] Chromium browser closed. " +
-                    $"Time: {stopwatch.ElapsedMilliseconds} ms");
             }
 
             if (_playwright != null)
             {
-                Console.WriteLine(
-                    "[ResumePdfGenerator] Disposing Playwright instance...");
-
                 _playwright.Dispose();
 
                 _playwright = null;
             }
 
-            Console.WriteLine(
-                $"[ResumePdfGenerator] Playwright shutdown completed. " +
-                $"Total time: {stopwatch.ElapsedMilliseconds} ms");
         }
         catch (Exception ex)
         {
-            Console.WriteLine(
-                $"[ResumePdfGenerator] Error while shutting down Playwright. " +
-                $"Time: {stopwatch.ElapsedMilliseconds} ms. " +
-                $"Error: {ex.Message}");
-
             throw;
         }
         finally
         {
             _browserLock.Release();
-
-            Console.WriteLine(
-                "[ResumePdfGenerator] Browser lock released after shutdown.");
         }
     }
 
     public async ValueTask DisposeAsync()
     {
-        Console.WriteLine(
-            "[ResumePdfGenerator] DisposeAsync called.");
-
         await ShutdownBrowserAsync();
     }
 

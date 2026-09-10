@@ -4,6 +4,7 @@ using TheIgKnightWorker.Application.Helpers;
 using TheIgKnightWorker.Application.Interfaces;
 using TheIgKnightWorker.Application.ResumeTemplates;
 using TheIgKnightWorker.Domain.Entities;
+using static TheIgKnightWorker.Domain.Enums.Enums;
 
 namespace TheIgKnightWorker.Application.Services;
 
@@ -45,6 +46,16 @@ public class ResumeHtmlBuilder : IResumeHtmlBuilder
                 $"Resume template was not found: {template.HtmlTemplatePath}",
                 template.HtmlTemplatePath);
         }
+
+        skillList.AddRange(
+                portfolio.MetaData.CustomSkills.Select(x => new Skill
+                {
+                    Id = 0,
+                    Name = x,
+                    Category = SkillCategory.Other,
+                    CreatedAt = DateTime.UtcNow,
+                    UpdatedAt = null
+                }));
 
         var html =
             File.ReadAllText(
