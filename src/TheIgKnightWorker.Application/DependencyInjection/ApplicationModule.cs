@@ -1,6 +1,5 @@
 ﻿using Autofac;
-using AutoMapper;
-using Microsoft.Extensions.Logging;
+using Microsoft.Extensions.Configuration;
 using TheIgKnightWorker.Application.Interfaces;
 using TheIgKnightWorker.Application.Services;
 
@@ -8,6 +7,11 @@ namespace TheIgKnightWorker.Application.DependencyInjection;
 
 public class ApplicationModule : Module
 {
+    private readonly IConfiguration Configuration;
+    public ApplicationModule(IConfiguration configuration)
+    {
+        this.Configuration = configuration;
+    }
     protected override void Load(ContainerBuilder builder)
     {
 
@@ -15,13 +19,20 @@ public class ApplicationModule : Module
             .As<IFileValidator>()
             .InstancePerDependency();
 
-        builder.RegisterType<LocalFileStorageProvider>()
-            .As<IFileStorageProvider>()
-            .InstancePerDependency();
-
-        builder.RegisterType<AzureBlobStorageProvider>()
-            .Named<IFileStorageProvider>("azure")
-            .InstancePerDependency();
+        var storageType = this.Configuration["StorageType"];
+        Console.WriteLine($"StorageType from config: {storageType}");
+        if (storageType == "Blob")
+        {
+            builder.RegisterType<AzureBlobStorageProvider>()
+                   .As<IFileStorageProvider>()
+                   .InstancePerLifetimeScope();
+        }
+        else
+        {
+            builder.RegisterType<LocalFileStorageProvider>()
+                   .As<IFileStorageProvider>()
+                   .InstancePerLifetimeScope();
+        }
 
         builder.RegisterType<FileService>()
             .As<IFileService>()
@@ -43,12 +54,12 @@ public class ApplicationModule : Module
                     .As<IResumeHtmlBuilder>()
                     .InstancePerDependency();
 
-            builder.RegisterType<ResumePdfGenerator>()
-                .As<IResumePdfGenerator>()
-                .SingleInstance();
+        builder.RegisterType<ResumePdfGenerator>()
+            .As<IResumePdfGenerator>()
+            .SingleInstance();
 
-            builder.RegisterType<ResumeService>()
-                .As<IResumeService>()
-                .InstancePerDependency();
+        builder.RegisterType<ResumeService>()
+            .As<IResumeService>()
+            .InstancePerDependency();
     }
 }

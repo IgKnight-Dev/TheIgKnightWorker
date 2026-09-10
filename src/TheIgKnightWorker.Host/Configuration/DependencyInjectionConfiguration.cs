@@ -26,10 +26,13 @@ public static class DependencyInjectionConfiguration
         });
 
         builder.ConfigureContainer<ContainerBuilder>(
-            containerBuilder =>
+            (context, containerBuilder) =>
             {
                 containerBuilder.RegisterModule<InfrastructureModule>();
-                containerBuilder.RegisterModule<ApplicationModule>();
+
+                containerBuilder.RegisterModule(
+                    new ApplicationModule(context.Configuration));
+
                 containerBuilder.RegisterAutoMappers();
             });
 
