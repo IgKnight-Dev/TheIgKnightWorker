@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Configuration;
+﻿using Azure.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TheIgKnightWorker.Infrastructure.Messaging.AzureServiceBus;
 
@@ -27,5 +28,21 @@ public static class ServiceCollectionExtensions
             .ValidateOnStart();
 
         return services;
+    }
+
+    public static IHostBuilder UpdateConfigurationKeys(this IHostBuilder builder)
+    {
+        var keyVaultUriString = "https://ignight-dev-kv.vault.azure.net/";
+
+        var keyVaultUri = new Uri(keyVaultUriString);
+
+        builder.ConfigureAppConfiguration((context, config) =>
+        {
+            config.AddAzureKeyVault(
+                keyVaultUri,
+                new DefaultAzureCredential());
+        });
+
+        return builder;
     }
 }
