@@ -87,6 +87,7 @@ RUN apt-get update && \
         libxdamage1 \
         libxext6 \
         libxfixes3 \
+        libxkbcommon0 \
         libxrandr2 \
         libxshmfence1 \
     && rm -rf /var/lib/apt/lists/* \
