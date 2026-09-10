@@ -13,6 +13,16 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheIgKnightWorker.Infrastru
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TheIgKnightWorker", "src\TheIgKnightWorker.Host\TheIgKnightWorker.csproj", "{1B358AB6-E47A-4F94-9600-FBDE4EAD84E6}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".github", ".github", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "workflows", "workflows", "{D2D0DCBA-DD7D-42C4-8982-87122B8ECF1A}"
+	ProjectSection(SolutionItems) = preProject
+		worker-cd.yml = worker-cd.yml
+		worker-ci.yml = worker-ci.yml
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EC462FD-D22E-90A8-E5CE-7E832BA40C5D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -80,6 +90,7 @@ Global
 		{230FE27B-35D4-47DC-BC82-475D1692455D} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{1D8DD665-E5D9-4F71-8ED4-49923679D14F} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
 		{1B358AB6-E47A-4F94-9600-FBDE4EAD84E6} = {827E0CD3-B72D-47B6-A68D-7590B98EB39B}
+		{D2D0DCBA-DD7D-42C4-8982-87122B8ECF1A} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {C7ED7C2D-B5A7-47D1-A515-9C1BA466BD66}
