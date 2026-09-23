@@ -16,7 +16,7 @@ public class ContextUserRepository : IContextUserRepository
     public async Task<User> GetUserByUserIdAsync(Guid userId)
     {
         var connection = this.DapperContext.Connection;
-        var userDetails = await connection.QuerySingleOrDefaultAsync<DbUser>(UserSql.GetUserByUserId, new { UserId = userId }, this.DapperContext.CurrentTransaction);
+        var userDetails = await connection.QuerySingleOrDefaultAsync<DbUser>(PostgreUserSql.GetUserByUserId, new { UserId = userId }, this.DapperContext.CurrentTransaction);
         return this.Mapper.Map<User>(userDetails);
     }
 }

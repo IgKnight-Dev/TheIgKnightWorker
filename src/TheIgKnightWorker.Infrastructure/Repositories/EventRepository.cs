@@ -23,7 +23,7 @@ public class EventRepository : IEventRepository
             this.Mapper.Map<DbEvent>(eventEntity);
 
         await connection.ExecuteAsync(
-            EventSql.CreateEvent,
+            PostgreEventSql.CreateEvent,
             dbEvent,
             this.DapperContext.CurrentTransaction);
 
@@ -38,7 +38,7 @@ public class EventRepository : IEventRepository
 
         var dbEvent =
             await connection.QuerySingleOrDefaultAsync<DbEvent>(
-                EventSql.GetEventByEventId,
+                PostgreEventSql.GetEventByEventId,
                 new
                 {
                     EventId = eventId
@@ -56,7 +56,7 @@ public class EventRepository : IEventRepository
 
         var dbEvent =
             await connection.QuerySingleOrDefaultAsync<DbEvent>(
-                EventSql.GetEventByJobId,
+                PostgreEventSql.GetEventByJobId,
                 new
                 {
                     JobId = jobId
@@ -74,7 +74,7 @@ public class EventRepository : IEventRepository
 
         var dbEvents =
             await connection.QueryAsync<DbEvent>(
-                EventSql.GetEventsByEntityId,
+                PostgreEventSql.GetEventsByEntityId,
                 new
                 {
                     EntityId = entityId
@@ -92,7 +92,7 @@ public class EventRepository : IEventRepository
 
         var dbEvents =
             await connection.QueryAsync<DbEvent>(
-                EventSql.GetEventsByUserId,
+                PostgreEventSql.GetEventsByUserId,
                 new
                 {
                     UserId = userId
@@ -113,7 +113,7 @@ public class EventRepository : IEventRepository
 
         var affectedRows =
             await connection.ExecuteAsync(
-                EventSql.UpdateEvent,
+                PostgreEventSql.UpdateEvent,
                 dbEvent,
                 this.DapperContext.CurrentTransaction);
 
@@ -129,7 +129,7 @@ public class EventRepository : IEventRepository
 
         var affectedRows =
             await connection.ExecuteAsync(
-                EventSql.DeleteEvent,
+                PostgreEventSql.DeleteEvent,
                 new
                 {
                     EventId = eventId,

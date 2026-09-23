@@ -22,7 +22,7 @@ public class DocumentRepository : IDocumentRepository
         document.UpdatedBy = _requestContext.User.UserIdentifier;
 
         var connection = _dapperContext.Connection;
-        await connection.ExecuteAsync(DocumentSql.InsertDocument, document);
+        await connection.ExecuteAsync(PostgreDocumentSql.InsertDocument, document);
         return document.DocumentId;
     }
 

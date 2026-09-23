@@ -17,7 +17,7 @@ public class SkillRepository : ISkillRepository
     {
         var connection = this.DapperContext.Connection;
 
-        var skills = await connection.QueryAsync<DbSkill>(SkillSql.GetSkills);
+        var skills = await connection.QueryAsync<DbSkill>(PostgreSkillSql.GetSkills);
 
         return this.Mapper.Map<List<Skill>>(skills);
     }
@@ -25,7 +25,7 @@ public class SkillRepository : ISkillRepository
     public async Task<Skill> GetSkillByIdAsync(short skillId)
     {
         var connection = this.DapperContext.Connection;
-        var skill = await connection.QueryFirstOrDefaultAsync<DbSkill>(SkillSql.GetSkillById, new { Id = skillId });
+        var skill = await connection.QueryFirstOrDefaultAsync<DbSkill>(PostgreSkillSql.GetSkillById, new { Id = skillId });
 
         return this.Mapper.Map<Skill>(skill);
     }
@@ -41,7 +41,7 @@ public class SkillRepository : ISkillRepository
 
         var connection = this.DapperContext.Connection;
 
-        var skills = await connection.QueryAsync<DbSkill>(SkillSql.GetSkillsByIds, new { Ids = ids });
+        var skills = await connection.QueryAsync<DbSkill>(PostgreSkillSql.GetSkillsByIds, new { Ids = ids });
 
         return this.Mapper.Map<IEnumerable<Skill>>(skills);
     }
@@ -49,7 +49,7 @@ public class SkillRepository : ISkillRepository
     public async Task<bool> SkillExistsAsync(string skillName)
     {
         var connection = this.DapperContext.Connection;
-        var skill = await connection.QueryFirstOrDefaultAsync<int>(SkillSql.SkillExists, new { Name = skillName });
+        var skill = await connection.QueryFirstOrDefaultAsync<int>(PostgreSkillSql.SkillExists, new { Name = skillName });
 
         return skill > 0 ? true : false;
     }
@@ -61,7 +61,7 @@ public class SkillRepository : ISkillRepository
         var dbSkill = this.Mapper.Map<DbSkill>(skill);
 
         var skillId = await connection.QuerySingleAsync<short>(
-            SkillSql.AddSkill,
+            PostgreSkillSql.AddSkill,
             dbSkill
         );
 
@@ -73,6 +73,6 @@ public class SkillRepository : ISkillRepository
     public async Task DeleteSkillAsync(short skillId)
     {
         var connection = this.DapperContext.Connection;
-        await connection.ExecuteAsync(SkillSql.DeleteSkill, new { Id = skillId });
+        await connection.ExecuteAsync(PostgreSkillSql.DeleteSkill, new { Id = skillId });
     }
 }
