@@ -1,6 +1,7 @@
 ﻿using Microsoft.Azure.Amqp.Sasl;
 using Microsoft.Data.SqlClient;
 using Microsoft.Extensions.Configuration;
+using Npgsql;
 using Polly;
 using System.Data;
 

@@ -29,20 +29,20 @@ public class DocumentRepository : IDocumentRepository
     public async Task<Document?> GetDocumentByIdAsync(Guid documentId)
     {
         var connection = _dapperContext.Connection;
-        var db = await connection.QueryFirstOrDefaultAsync<DbDocument>(DocumentSql.GetDocumentById, new { DocumentId = documentId });
+        var db = await connection.QueryFirstOrDefaultAsync<DbDocument>(PostgreDocumentSql.GetDocumentById, new { DocumentId = documentId });
         return db == null ? null : _mapper.Map<Document>(db);
     }
 
     public async Task<Document?> GetDocumentsByPortfolioIdAsync(Guid portfolioId)
     {
         var connection = _dapperContext.Connection;
-        var db = await connection.QueryFirstOrDefaultAsync<DbDocument>(DocumentSql.GetDocumentByPortfolioId, new { PortfolioId = portfolioId });
+        var db = await connection.QueryFirstOrDefaultAsync<DbDocument>(PostgreDocumentSql.GetDocumentByPortfolioId, new { PortfolioId = portfolioId });
         return db == null ? null : _mapper.Map<Document>(db);
     }
 
     public async Task DeleteDocumentAsync(Guid documentId)
     {
         var connection = _dapperContext.Connection;
-        await connection.ExecuteAsync(DocumentSql.DeleteDocument, new { DocumentId = documentId });
+        await connection.ExecuteAsync(PostgreDocumentSql.DeleteDocument, new { DocumentId = documentId });
     }
 }
